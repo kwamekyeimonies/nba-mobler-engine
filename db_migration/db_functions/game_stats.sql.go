@@ -171,6 +171,68 @@ func (q *Queries) GetGameStatsById(ctx context.Context, id uuid.UUID) (GameStat,
 	return i, err
 }
 
+const getGamesStatsByGameGrouping = `-- name: GetGamesStatsByGameGrouping :many
+SELECT
+    game_id,
+    array_agg(id) AS stat_ids,
+    array_agg(points) AS points,
+    array_agg(rebounds) AS rebounds,
+    array_agg(assists) AS assists,
+    array_agg(steals) AS steals,
+    array_agg(blocks) AS blocks,
+    array_agg(fouls) AS fouls,
+    array_agg(turn_overs) AS turn_overs,
+    array_agg(minutes_played) AS minutes_played
+FROM
+    game_stats
+GROUP BY
+    game_id
+`
+
+type GetGamesStatsByGameGroupingRow struct {
+	GameID        uuid.UUID   `json:"game_id"`
+	StatIds       interface{} `json:"stat_ids"`
+	Points        interface{} `json:"points"`
+	Rebounds      interface{} `json:"rebounds"`
+	Assists       interface{} `json:"assists"`
+	Steals        interface{} `json:"steals"`
+	Blocks        interface{} `json:"blocks"`
+	Fouls         interface{} `json:"fouls"`
+	TurnOvers     interface{} `json:"turn_overs"`
+	MinutesPlayed interface{} `json:"minutes_played"`
+}
+
+func (q *Queries) GetGamesStatsByGameGrouping(ctx context.Context) ([]GetGamesStatsByGameGroupingRow, error) {
+	rows, err := q.db.Query(ctx, getGamesStatsByGameGrouping)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []GetGamesStatsByGameGroupingRow{}
+	for rows.Next() {
+		var i GetGamesStatsByGameGroupingRow
+		if err := rows.Scan(
+			&i.GameID,
+			&i.StatIds,
+			&i.Points,
+			&i.Rebounds,
+			&i.Assists,
+			&i.Steals,
+			&i.Blocks,
+			&i.Fouls,
+			&i.TurnOvers,
+			&i.MinutesPlayed,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const updateGameStats = `-- name: UpdateGameStats :one
 UPDATE game_stats
 SET

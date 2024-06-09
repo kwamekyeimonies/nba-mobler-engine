@@ -17,6 +17,7 @@ func GinRestAPIServer() error {
 	ginServer := gin.Default()
 	apiGroup := ginServer.Group("/api/v1.0")
 	teamRouter.TeamRoutes(apiGroup)
+	playerRouter.PlayerRoutes(apiGroup)
 
 	fmt.Println("server running on port: ", serverURL)
 

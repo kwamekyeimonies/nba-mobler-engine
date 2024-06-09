@@ -81,6 +81,37 @@ func (q *Queries) GetAllPlayers(ctx context.Context) ([]Player, error) {
 	return items, nil
 }
 
+const getAllPlayersByTeamId = `-- name: GetAllPlayersByTeamId :many
+SELECT id, name, team, created_at, updated_at, team_id FROM player WHERE team_id=$1
+`
+
+func (q *Queries) GetAllPlayersByTeamId(ctx context.Context, teamID uuid.UUID) ([]Player, error) {
+	rows, err := q.db.Query(ctx, getAllPlayersByTeamId, teamID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Player{}
+	for rows.Next() {
+		var i Player
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.Team,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.TeamID,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const getPlayerById = `-- name: GetPlayerById :one
 SELECT id, name, team, created_at, updated_at, team_id FROM player WHERE id=$1
 `

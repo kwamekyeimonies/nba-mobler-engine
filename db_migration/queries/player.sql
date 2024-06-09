@@ -16,3 +16,6 @@ SELECT * FROM player;
 
 -- name: GetPlayerById :one
 SELECT * FROM player WHERE id=$1;
+
+-- name: GetAllPlayersByTeamId :many
+SELECT * FROM player WHERE team_id=$1;
