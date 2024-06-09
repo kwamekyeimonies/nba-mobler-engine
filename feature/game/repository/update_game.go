@@ -14,7 +14,6 @@ func (gameRepo GameRepository) UpdateGameStatistics(ctx context.Context, request
 	updateRequestPayload := &model.CreateGameRequest{
 		Name:          request.Name,
 		PlayerId:      request.PlayerId,
-		GameID:        request.GameID,
 		Points:        request.Points,
 		Rebounds:      request.Rebounds,
 		Assists:       request.Assists,

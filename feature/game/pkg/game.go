@@ -14,4 +14,5 @@ type IGameRepository interface {
 	GetGameByGameId(ctx context.Context, requestId uuid.UUID) (*db.Game, error)
 	GetAllGamesStatsByGameId(ctx context.Context, requestId uuid.UUID) ([]db.GameStat, error)
 	GetAllGame(ctx context.Context) ([]db.GetGamesStatsByGameGroupingRow, error)
+	GetGameStatById(ctx context.Context, requestId uuid.UUID) (*db.GameStat, error)
 }

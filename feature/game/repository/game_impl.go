@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"errors"
 	"github.com/google/uuid"
 	db "github.com/kwamekyeimonies/nba-mobler-engine/db_migration/db_functions"
 )
@@ -42,4 +43,13 @@ func (gameRepo GameRepository) GetAllGame(ctx context.Context) ([]db.GetGamesSta
 
 	return gamesDBResponsePayload, nil
 
+}
+
+func (gameRepo GameRepository) GetGameStatById(ctx context.Context, requestId uuid.UUID) (*db.GameStat, error) {
+	responsePayload, err := gameRepo.datasource.PostgresDBConnector().PgQuery.GetGameStatsById(ctx, requestId)
+	if err != nil {
+		return nil, errors.New("game stats with such id doesnot exist")
+	}
+
+	return &responsePayload, nil
 }
