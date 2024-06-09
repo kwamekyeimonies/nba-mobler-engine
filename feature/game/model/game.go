@@ -20,7 +20,6 @@ type CreateGameRequest struct {
 }
 
 type UpdateGameRequest struct {
-	GameID        string `json:"game_id"`
 	GameStatsId   string `json:"game_stats_id"`
 	Name          string `json:"name"`
 	Points        int32  `json:"points"`

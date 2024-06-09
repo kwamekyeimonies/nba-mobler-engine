@@ -11,4 +11,6 @@ type ITeamsRepository interface {
 	CreateTeam(ctx context.Context, request *model.CreateTeamRequest) (*string, error)
 	GetAllTeams(ctx context.Context) ([]db.Team, error)
 	GetTeamById(ctx context.Context, teamId uuid.UUID) (*db.Team, error)
+	GetAllTeamsAverage(ctx context.Context) ([]db.CalculateAllTeamsAverageRow, error)
+	GetTeamAverage(ctx context.Context, requestId uuid.UUID) (*db.CalculateTeamAverageRow, error)
 }

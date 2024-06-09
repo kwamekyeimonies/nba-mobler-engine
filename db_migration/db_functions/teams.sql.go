@@ -11,6 +11,125 @@ import (
 	"github.com/google/uuid"
 )
 
+const calculateAllTeamsAverage = `-- name: CalculateAllTeamsAverage :many
+SELECT
+    t.name AS team_name,
+    AVG(gs.points) AS avg_points,
+    AVG(gs.rebounds) AS avg_rebounds,
+    AVG(gs.assists) AS avg_assists,
+    AVG(gs.steals) AS avg_steals,
+    AVG(gs.blocks) AS avg_blocks,
+    AVG(gs.fouls) AS avg_fouls,
+    AVG(gs.turn_overs) AS avg_turn_overs,
+    AVG(gs.minutes_played) AS avg_minutes_played
+FROM
+    game_stats gs
+        JOIN
+    game g ON gs.game_id = g.id
+        JOIN
+    player p ON g.player_id = p.id
+        JOIN
+    teams t ON p.team_id = t.id
+GROUP BY
+    t.name
+`
+
+type CalculateAllTeamsAverageRow struct {
+	TeamName         string  `json:"team_name"`
+	AvgPoints        float64 `json:"avg_points"`
+	AvgRebounds      float64 `json:"avg_rebounds"`
+	AvgAssists       float64 `json:"avg_assists"`
+	AvgSteals        float64 `json:"avg_steals"`
+	AvgBlocks        float64 `json:"avg_blocks"`
+	AvgFouls         float64 `json:"avg_fouls"`
+	AvgTurnOvers     float64 `json:"avg_turn_overs"`
+	AvgMinutesPlayed float64 `json:"avg_minutes_played"`
+}
+
+func (q *Queries) CalculateAllTeamsAverage(ctx context.Context) ([]CalculateAllTeamsAverageRow, error) {
+	rows, err := q.db.Query(ctx, calculateAllTeamsAverage)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []CalculateAllTeamsAverageRow{}
+	for rows.Next() {
+		var i CalculateAllTeamsAverageRow
+		if err := rows.Scan(
+			&i.TeamName,
+			&i.AvgPoints,
+			&i.AvgRebounds,
+			&i.AvgAssists,
+			&i.AvgSteals,
+			&i.AvgBlocks,
+			&i.AvgFouls,
+			&i.AvgTurnOvers,
+			&i.AvgMinutesPlayed,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
+const calculateTeamAverage = `-- name: CalculateTeamAverage :one
+SELECT
+    t.name AS team_name,
+    AVG(gs.points) AS avg_points,
+    AVG(gs.rebounds) AS avg_rebounds,
+    AVG(gs.assists) AS avg_assists,
+    AVG(gs.steals) AS avg_steals,
+    AVG(gs.blocks) AS avg_blocks,
+    AVG(gs.fouls) AS avg_fouls,
+    AVG(gs.turn_overs) AS avg_turn_overs,
+    AVG(gs.minutes_played) AS avg_minutes_played
+FROM
+    game_stats gs
+        JOIN
+    game g ON gs.game_id = g.id
+        JOIN
+    player p ON g.player_id = p.id
+        JOIN
+    teams t ON p.team_id = t.id
+WHERE
+    t.id = $1
+GROUP BY
+    t.name
+`
+
+type CalculateTeamAverageRow struct {
+	TeamName         string  `json:"team_name"`
+	AvgPoints        float64 `json:"avg_points"`
+	AvgRebounds      float64 `json:"avg_rebounds"`
+	AvgAssists       float64 `json:"avg_assists"`
+	AvgSteals        float64 `json:"avg_steals"`
+	AvgBlocks        float64 `json:"avg_blocks"`
+	AvgFouls         float64 `json:"avg_fouls"`
+	AvgTurnOvers     float64 `json:"avg_turn_overs"`
+	AvgMinutesPlayed float64 `json:"avg_minutes_played"`
+}
+
+func (q *Queries) CalculateTeamAverage(ctx context.Context, id uuid.UUID) (CalculateTeamAverageRow, error) {
+	row := q.db.QueryRow(ctx, calculateTeamAverage, id)
+	var i CalculateTeamAverageRow
+	err := row.Scan(
+		&i.TeamName,
+		&i.AvgPoints,
+		&i.AvgRebounds,
+		&i.AvgAssists,
+		&i.AvgSteals,
+		&i.AvgBlocks,
+		&i.AvgFouls,
+		&i.AvgTurnOvers,
+		&i.AvgMinutesPlayed,
+	)
+	return i, err
+}
+
 const createTeam = `-- name: CreateTeam :one
 INSERT INTO teams (
     id,

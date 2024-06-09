@@ -19,4 +19,6 @@ func (playerRoute *PlayerRouter) PlayerRoutes(route *gin.RouterGroup) {
 	route.POST("/player", playerRoute.playerController.CreateNewPlayer)
 	route.GET("/player", playerRoute.playerController.GetAllPlayers)
 	route.GET("/player/:playerId", playerRoute.playerController.GetPlayerById)
+	route.GET("/player/average/:playerId", playerRoute.playerController.GetPlayerAverage)
+	route.GET("/player/average", playerRoute.playerController.GetAllPlayersAverage)
 }

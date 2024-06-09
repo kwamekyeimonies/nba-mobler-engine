@@ -1,0 +1,427 @@
+{
+	"info": {
+		"_postman_id": "49f6ac37-9af5-427a-83e3-215fd0e6626b",
+		"name": "Mobler",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24545701",
+		"_collection_link": "https://universal-zodiac-38963.postman.co/workspace/3a0ff60b-53a1-443e-a4d3-8bf10680ebc8/collection/24545701-49f6ac37-9af5-427a-83e3-215fd0e6626b?action=share&source=collection_link&creator=24545701"
+	},
+	"item": [
+		{
+			"name": "CreateTeam",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"team_name\":\"Los Angeles Lakers\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/team",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"team"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllTeams",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/team",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"team"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetTeamById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/team/f6f94b8b-c81f-4eb3-9791-66be28608752",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"team",
+						"f6f94b8b-c81f-4eb3-9791-66be28608752"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreatePlayer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"player_name\":\"Kwame Monies\",\n    \"team_id\":\"8c0b1a86-7324-44fb-8b4a-a6e74bf07f92\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/player",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"player"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllPlayers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/player",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"player"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPlayerById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/player/590f1c7a-aebf-4932-ae59-132926b9ec5b",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"player",
+						"590f1c7a-aebf-4932-ae59-132926b9ec5b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateGame",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Lakers Vs Celtic\",\n    \"player_id\": \"01ec8b27-47f4-491d-baed-ec04635d16a0\",\n    \"game_id\": \"67890\",\n    \"points\": 1,\n    \"rebounds\": 1,\n    \"assists\": 2,\n    \"steals\": 2,\n    \"blocks\": 2,\n    \"fouls\": 6,\n    \"turn_overs\": 95,\n    \"minutes_played\": 47\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/game",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllGamesStatistics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/game/stats",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"game",
+						"stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetGameStatsByGameId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/game/2b454279-919a-4eda-bb30-b6220d122510",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"game",
+						"2b454279-919a-4eda-bb30-b6220d122510"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllGames",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/game",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateGameStats",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Lakers Vs Celtic\",\n    \"game_stats_id\": \"2997ac76-e8ab-49be-87dd-faea03ad3784\",\n    \"game_id\": \"67890\",\n    \"points\": 1,\n    \"rebounds\": 7,\n    \"assists\": 2,\n    \"steals\": 9,\n    \"blocks\": 2,\n    \"fouls\": 6,\n    \"turn_overs\": 95,\n    \"minutes_played\": 47\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/game",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetGameStatsById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/game/stats/c114fc7d-1e1e-461b-8aab-d50e28a44a53",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"game",
+						"stats",
+						"c114fc7d-1e1e-461b-8aab-d50e28a44a53"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllPlayersAverage",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/player/average",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"player",
+						"average"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPlayerAverageByPlayerId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/player/average/e42510bd-dd24-46aa-b1f8-232e7627869a",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"player",
+						"average",
+						"e42510bd-dd24-46aa-b1f8-232e7627869a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllTeamsAverage",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/team/average",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"team",
+						"average"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAverageByTeamId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "0.0.0.0:8976/api/v1.0/team/average/8c0b1a86-7324-44fb-8b4a-a6e74bf07f92",
+					"host": [
+						"0",
+						"0",
+						"0",
+						"0"
+					],
+					"port": "8976",
+					"path": [
+						"api",
+						"v1.0",
+						"team",
+						"average",
+						"8c0b1a86-7324-44fb-8b4a-a6e74bf07f92"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

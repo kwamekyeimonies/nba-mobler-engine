@@ -34,6 +34,10 @@ func (gameRepo GameRepository) CreateGameStatistics(ctx context.Context, request
 	}
 
 	//	Lets create game and game stats for player
+	_, err = gameRepo.playerRepo.GetPlayerById(ctx, playerUUID)
+	if err != nil {
+		return nil, errors.New("invalid player id, player does not exist")
+	}
 	gameDBPayload, err := gameRepo.datasource.PostgresDBConnector().PgQuery.CreateGame(ctx, db.CreateGameParams{
 		ID:       uuid.New(),
 		Name:     request.Name,
