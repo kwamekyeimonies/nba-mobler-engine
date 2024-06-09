@@ -1,8 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"github.com/kwamekyeimonies/nba-mobler-engine/internal"
+	"log"
+)
 
+func main() {
 
-func main(){
-	fmt.Println("Welcome to NBA Statistics")
+	err := internal.InitializeDependencies()
+	if err != nil {
+		log.Printf("error: %v", err)
+	}
+
 }
