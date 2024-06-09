@@ -35,7 +35,7 @@ func GameStatsValidators(request *model.CreateGameRequest) error {
 }
 
 func GameStatFoulValidators(request *model.CreateGameRequest) error {
-	if request.Fouls > 6 && request.Fouls < 0 {
+	if request.Fouls > 6 || request.Fouls < 0 {
 		return errors.New("maximum number of fouls should not exceed 6 and should be a positive integer")
 	}
 
@@ -43,7 +43,7 @@ func GameStatFoulValidators(request *model.CreateGameRequest) error {
 }
 
 func GameStatMinutesValidator(request *model.CreateGameRequest) error {
-	if request.MinutesPlayed > 48 && request.MinutesPlayed < 0 {
+	if request.MinutesPlayed >= 48 || request.MinutesPlayed <= 0 {
 		return errors.New("minutes playes should be between 0 and 48.0")
 	}
 

@@ -6,8 +6,8 @@ import (
 	"net/http"
 )
 
-func (gameController *GameController) CreateNewGame(ctx *gin.Context) {
-	var request *model.CreateGameRequest
+func (gameController *GameController) UpdateGame(ctx *gin.Context) {
+	var request *model.UpdateGameRequest
 
 	if ctx.Request.ContentLength == 0 {
 		ctx.JSON(http.StatusBadRequest, gin.H{
@@ -23,7 +23,7 @@ func (gameController *GameController) CreateNewGame(ctx *gin.Context) {
 		return
 	}
 
-	response, err := gameController.gameRepo.CreateGameStatistics(ctx, request)
+	response, err := gameController.gameRepo.UpdateGameStatistics(ctx, request)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": err.Error(),
