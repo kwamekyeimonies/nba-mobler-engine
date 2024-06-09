@@ -12,6 +12,5 @@ FROM golang:1.22
 WORKDIR /
 COPY --from=builder /main .
 COPY config ./config
-COPY logs ./logs
 EXPOSE 8976
 ENTRYPOINT ["/main"]
