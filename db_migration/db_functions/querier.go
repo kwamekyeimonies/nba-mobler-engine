@@ -24,6 +24,7 @@ type Querier interface {
 	GetGameStatsById(ctx context.Context, id uuid.UUID) (GameStat, error)
 	GetPlayerById(ctx context.Context, id uuid.UUID) (Player, error)
 	GetTeamById(ctx context.Context, id uuid.UUID) (Team, error)
+	GetTeamByName(ctx context.Context, name string) (Team, error)
 	UpdateGameStats(ctx context.Context, arg UpdateGameStatsParams) (GameStat, error)
 	UpdateTeam(ctx context.Context, arg UpdateTeamParams) (Team, error)
 }
