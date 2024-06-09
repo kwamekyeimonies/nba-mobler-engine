@@ -38,3 +38,21 @@ SET
     updated_at = NOW()
 WHERE id = $1
 RETURNING *;
+
+
+-- name: GetGamesStatsByGameGrouping :many
+SELECT
+    game_id,
+    array_agg(id) AS stat_ids,
+    array_agg(points) AS points,
+    array_agg(rebounds) AS rebounds,
+    array_agg(assists) AS assists,
+    array_agg(steals) AS steals,
+    array_agg(blocks) AS blocks,
+    array_agg(fouls) AS fouls,
+    array_agg(turn_overs) AS turn_overs,
+    array_agg(minutes_played) AS minutes_played
+FROM
+    game_stats
+GROUP BY
+    game_id;

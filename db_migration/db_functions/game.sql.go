@@ -15,31 +15,34 @@ const createGame = `-- name: CreateGame :one
 INSERT INTO game (
     id,
     name,
+    player_id,
     created_at
 ) VALUES (
-             $1, $2, NOW()
-         ) RETURNING id, name, created_at, updated_at
+             $1, $2,$3, NOW()
+         ) RETURNING id, name, created_at, updated_at, player_id
 `
 
 type CreateGameParams struct {
-	ID   uuid.UUID `json:"id"`
-	Name string    `json:"name"`
+	ID       uuid.UUID `json:"id"`
+	Name     string    `json:"name"`
+	PlayerID uuid.UUID `json:"player_id"`
 }
 
 func (q *Queries) CreateGame(ctx context.Context, arg CreateGameParams) (Game, error) {
-	row := q.db.QueryRow(ctx, createGame, arg.ID, arg.Name)
+	row := q.db.QueryRow(ctx, createGame, arg.ID, arg.Name, arg.PlayerID)
 	var i Game
 	err := row.Scan(
 		&i.ID,
 		&i.Name,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.PlayerID,
 	)
 	return i, err
 }
 
 const getAllGames = `-- name: GetAllGames :many
-SELECT id, name, created_at, updated_at FROM game
+SELECT id, name, created_at, updated_at, player_id FROM game
 `
 
 func (q *Queries) GetAllGames(ctx context.Context) ([]Game, error) {
@@ -56,6 +59,7 @@ func (q *Queries) GetAllGames(ctx context.Context) ([]Game, error) {
 			&i.Name,
 			&i.CreatedAt,
 			&i.UpdatedAt,
+			&i.PlayerID,
 		); err != nil {
 			return nil, err
 		}
@@ -68,7 +72,7 @@ func (q *Queries) GetAllGames(ctx context.Context) ([]Game, error) {
 }
 
 const getGameById = `-- name: GetGameById :one
-SELECT id, name, created_at, updated_at FROM game WHERE id = $1
+SELECT id, name, created_at, updated_at, player_id FROM game WHERE id = $1
 `
 
 func (q *Queries) GetGameById(ctx context.Context, id uuid.UUID) (Game, error) {
@@ -79,6 +83,37 @@ func (q *Queries) GetGameById(ctx context.Context, id uuid.UUID) (Game, error) {
 		&i.Name,
 		&i.CreatedAt,
 		&i.UpdatedAt,
+		&i.PlayerID,
 	)
 	return i, err
+}
+
+const getGameByPlayerId = `-- name: GetGameByPlayerId :many
+SELECT id, name, created_at, updated_at, player_id FROM game where player_id=$1
+`
+
+func (q *Queries) GetGameByPlayerId(ctx context.Context, playerID uuid.UUID) ([]Game, error) {
+	rows, err := q.db.Query(ctx, getGameByPlayerId, playerID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []Game{}
+	for rows.Next() {
+		var i Game
+		if err := rows.Scan(
+			&i.ID,
+			&i.Name,
+			&i.CreatedAt,
+			&i.UpdatedAt,
+			&i.PlayerID,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }

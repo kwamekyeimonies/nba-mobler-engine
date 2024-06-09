@@ -18,5 +18,5 @@ func NewPlayerRouter(playerController playerControl.PlayerController) PlayerRout
 func (playerRoute *PlayerRouter) PlayerRoutes(route *gin.RouterGroup) {
 	route.POST("/player", playerRoute.playerController.CreateNewPlayer)
 	route.GET("/player", playerRoute.playerController.GetAllPlayers)
-	route.GET("/player/:teamId", playerRoute.playerController.GetPlayerById)
+	route.GET("/player/:playerId", playerRoute.playerController.GetPlayerById)
 }
