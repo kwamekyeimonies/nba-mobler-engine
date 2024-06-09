@@ -6,12 +6,26 @@ package db
 
 import (
 	"context"
+
+	"github.com/google/uuid"
 )
 
 type Querier interface {
-	CreateUserAccount(ctx context.Context, arg CreateUserAccountParams) (User, error)
-	GetUserByEmail(ctx context.Context, email string) (User, error)
-	GetUserByPhone(ctx context.Context, phonenumber string) (User, error)
+	CreateGame(ctx context.Context, arg CreateGameParams) (Game, error)
+	CreateGameStats(ctx context.Context, arg CreateGameStatsParams) (GameStat, error)
+	CreatePlayer(ctx context.Context, arg CreatePlayerParams) (Player, error)
+	CreateTeam(ctx context.Context, arg CreateTeamParams) (Team, error)
+	GetAllGameStats(ctx context.Context) ([]GameStat, error)
+	GetAllGames(ctx context.Context) ([]Game, error)
+	GetAllPlayers(ctx context.Context) ([]Player, error)
+	GetAllTeams(ctx context.Context) ([]Team, error)
+	GetGameById(ctx context.Context, id uuid.UUID) (Game, error)
+	GetGameStatsByGameId(ctx context.Context, gameID uuid.UUID) ([]GameStat, error)
+	GetGameStatsById(ctx context.Context, id uuid.UUID) (GameStat, error)
+	GetPlayerById(ctx context.Context, id uuid.UUID) (Player, error)
+	GetTeamById(ctx context.Context, id uuid.UUID) (Team, error)
+	UpdateGameStats(ctx context.Context, arg UpdateGameStatsParams) (GameStat, error)
+	UpdateTeam(ctx context.Context, arg UpdateTeamParams) (Team, error)
 }
 
 var _ Querier = (*Queries)(nil)

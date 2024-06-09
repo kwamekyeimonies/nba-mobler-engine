@@ -9,17 +9,40 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
-type User struct {
-	ID          uuid.UUID          `json:"id"`
-	Firstname   string             `json:"firstname"`
-	Lastname    string             `json:"lastname"`
-	Password    string             `json:"password"`
-	Createdat   pgtype.Timestamptz `json:"createdat"`
-	Updateat    pgtype.Timestamptz `json:"updateat"`
-	Deletedat   pgtype.Timestamptz `json:"deletedat"`
-	Activatedat pgtype.Timestamptz `json:"activatedat"`
-	Email       string             `json:"email"`
-	Phonenumber string             `json:"phonenumber"`
-	Dateofbirth string             `json:"dateofbirth"`
-	Isdeleted   pgtype.Bool        `json:"isdeleted"`
+type Game struct {
+	ID        uuid.UUID          `json:"id"`
+	Name      string             `json:"name"`
+	CreatedAt pgtype.Timestamptz `json:"created_at"`
+	UpdatedAt pgtype.Timestamptz `json:"updated_at"`
+}
+
+type GameStat struct {
+	ID            uuid.UUID          `json:"id"`
+	GameID        uuid.UUID          `json:"game_id"`
+	Points        int32              `json:"points"`
+	Rebounds      int32              `json:"rebounds"`
+	Assists       int32              `json:"assists"`
+	Steals        int32              `json:"steals"`
+	Blocks        int32              `json:"blocks"`
+	Fouls         int32              `json:"fouls"`
+	TurnOvers     int32              `json:"turn_overs"`
+	MinutesPlayed int32              `json:"minutes_played"`
+	CreatedAt     pgtype.Timestamptz `json:"created_at"`
+	UpdatedAt     pgtype.Timestamptz `json:"updated_at"`
+}
+
+type Player struct {
+	ID        uuid.UUID          `json:"id"`
+	Name      string             `json:"name"`
+	Team      string             `json:"team"`
+	CreatedAt pgtype.Timestamptz `json:"created_at"`
+	UpdatedAt pgtype.Timestamptz `json:"updated_at"`
+	TeamID    uuid.UUID          `json:"team_id"`
+}
+
+type Team struct {
+	ID        uuid.UUID          `json:"id"`
+	Name      string             `json:"name"`
+	CreatedAt pgtype.Timestamptz `json:"created_at"`
+	UpdatedAt pgtype.Timestamptz `json:"updated_at"`
 }
