@@ -48,7 +48,7 @@ GROUP BY
     t.name;
 
 
--- name: CalclulateAverateByTeam :one
+-- name: CalculateTeamAverage :one
 SELECT
     t.name AS team_name,
     AVG(gs.points) AS avg_points,
@@ -68,6 +68,6 @@ FROM
         JOIN
     teams t ON p.team_id = t.id
 WHERE
-    t.id = '$1'
+    t.id = $1
 GROUP BY
     t.name;

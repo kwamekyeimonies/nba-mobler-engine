@@ -11,9 +11,9 @@ import (
 )
 
 type Querier interface {
-	CalclulateAverateByTeam(ctx context.Context) (CalclulateAverateByTeamRow, error)
 	CalculateAllTeamsAverage(ctx context.Context) ([]CalculateAllTeamsAverageRow, error)
 	CalculatePlayerAverage(ctx context.Context, playerID uuid.UUID) (CalculatePlayerAverageRow, error)
+	CalculateTeamAverage(ctx context.Context, id uuid.UUID) (CalculateTeamAverageRow, error)
 	CreateGame(ctx context.Context, arg CreateGameParams) (Game, error)
 	CreateGameStats(ctx context.Context, arg CreateGameStatsParams) (GameStat, error)
 	CreatePlayer(ctx context.Context, arg CreatePlayerParams) (Player, error)

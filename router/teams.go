@@ -19,4 +19,6 @@ func (teamRoute *TeamRouter) TeamRoutes(route *gin.RouterGroup) {
 	route.POST("/team", teamRoute.teamController.CreateNewTeam)
 	route.GET("/team", teamRoute.teamController.GetAllTeams)
 	route.GET("/team/:teamId", teamRoute.teamController.GetTeamById)
+	route.GET("/team//average/:teamId", teamRoute.teamController.GetTeamAverage)
+	route.GET("/team/average", teamRoute.teamController.GetAllTeamsAverage)
 }
